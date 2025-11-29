@@ -30,16 +30,16 @@
 
 **目的**: プロジェクト初期化と基本構造の構築
 
-- [ ] T001 limimeshi-admin リポジトリを作成し、Gitを初期化
-- [ ] T002 limimeshi-admin/package.json で Vite + React + TypeScript プロジェクトを初期化
-- [ ] T003 [P] React Admin 5.x 依存関係をインストール（react-admin@^5.5.0, react-admin-firebase@^4.2.0）
-- [ ] T004 [P] limimeshi-admin/package.json に Firebase SDK 依存関係をインストール（firebase@^11.0.0）
-- [ ] T005 [P] limimeshi-admin/.eslintrc.cjs と limimeshi-admin/.prettierrc で ESLint と Prettier を設定
-- [ ] T006 [P] limimeshi-admin/tsconfig.json で TypeScript を設定（target: ES2020, jsx: react-jsx, strict: true）
-- [ ] T007 [P] limimeshi-admin/vite.config.ts で Vite を設定（port: 3000, outDir: dist）
-- [ ] T008 プロジェクトディレクトリ構造を作成（src/chains/, src/campaigns/, src/auth/, src/providers/, src/lib/, tests/）
+- [x] T001 limimeshi-admin リポジトリを作成し、Gitを初期化
+- [x] T002 limimeshi-admin/package.json で Vite + React + TypeScript プロジェクトを初期化
+- [x] T003 [P] React Admin 5.x 依存関係をインストール（react-admin@^5.13.2, react-admin-firebase@^5.0.1）
+- [x] T004 [P] limimeshi-admin/package.json に Firebase SDK 依存関係をインストール（firebase@^9.23.0）
+- [x] T005 [P] limimeshi-admin/eslint.config.js と limimeshi-admin/.prettierrc で ESLint と Prettier を設定
+- [x] T006 [P] limimeshi-admin/tsconfig.json で TypeScript を設定（target: ES2022, jsx: react-jsx, strict: true）
+- [x] T007 [P] limimeshi-admin/vite.config.ts で Vite を設定（port: 3000, outDir: dist）
+- [x] T008 プロジェクトディレクトリ構造を作成（src/chains/, src/campaigns/, src/auth/, src/providers/, src/lib/, tests/）
 - [ ] T009 [P] Firebase Console で Firebase プロジェクト（limimeshi-dev）をセットアップ
-- [ ] T010 [P] limimeshi-admin/.env.example に Firebase 設定変数を含む .env.local テンプレートを作成
+- [x] T010 [P] limimeshi-admin/.env.example に Firebase 設定変数を含む .env.local テンプレートを作成
 
 ---
 

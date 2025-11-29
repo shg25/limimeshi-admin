@@ -92,6 +92,11 @@
 
 #### react-admin-firebase パッケージの使用
 
+**バージョン制約（2025/11確認）**:
+- react-admin-firebase@5.0.1 は Firebase SDK 9.x を要求（`firebase@^9.6.4`）
+- Firebase SDK 10.x/11.x は非対応のため、firebase@^9.23.0 を使用
+- React 18.x を要求（React 19.x は非対応）
+
 ```typescript
 import {
   FirebaseDataProvider,
@@ -344,15 +349,15 @@ Vite を使用した React + TypeScript 環境
     "format": "prettier --write src"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-admin": "^5.5.0",
-    "react-admin-firebase": "^4.2.0",
-    "firebase": "^11.0.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-admin": "^5.13.2",
+    "react-admin-firebase": "^5.0.1",
+    "firebase": "^9.23.0"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitejs/plugin-react": "^4.3.0",
