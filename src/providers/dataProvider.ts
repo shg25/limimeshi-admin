@@ -105,7 +105,10 @@ const firestoreDataProvider = {
   getList: async (resource: string, params: ListParams) => {
     const { pagination, sort } = params;
     const { page = 1, perPage = 10 } = pagination || {};
-    const { field = 'createdAt', order = 'DESC' } = sort || {};
+    const { field: sortField = 'createdAt', order = 'DESC' } = sort || {};
+
+    // 'id'ソートはFirestoreでサポートされないため、createdAtに変換
+    const field = sortField === 'id' ? 'createdAt' : sortField;
 
     const q = query(
       collection(firestore, resource),
