@@ -18,8 +18,7 @@
     "@mui/material": "^7.3.5",
     "firebase": "^9.23.0",
     "react": "^18.3.1",
-    "react-admin": "^5.13.2",
-    "react-admin-firebase": "^5.0.1",
+    "react-admin": "^5.3.4",
     "react-dom": "^18.3.1"
   },
   "lint-staged": {
@@ -38,6 +37,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.24",
+    "firebase-admin": "^13.6.0",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
