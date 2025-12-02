@@ -1,16 +1,7 @@
-import { Edit, SimpleForm, TextInput, Toolbar, SaveButton, required, useNotify } from 'react-admin';
+import { Edit, SimpleForm, Toolbar, SaveButton, useNotify } from 'react-admin';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-// ひらがなのみのバリデーション
-const validateFurigana = (value: string) => {
-  if (!value) return undefined;
-  const hiraganaRegex = /^[\u3040-\u309Fー]+$/;
-  if (!hiraganaRegex.test(value)) {
-    return 'ひらがなのみで入力してください';
-  }
-  return undefined;
-};
+import { ChainFormFields } from './ChainForm';
 
 // カスタムツールバー（削除ボタンを無効化）
 const ChainEditToolbar = () => {
@@ -35,15 +26,7 @@ const ChainEditToolbar = () => {
 export const ChainEdit = () => (
   <Edit>
     <SimpleForm toolbar={<ChainEditToolbar />}>
-      <TextInput source="name" label="チェーン名" validate={required()} fullWidth />
-      <TextInput
-        source="furigana"
-        label="ふりがな"
-        validate={[required(), validateFurigana]}
-        fullWidth
-      />
-      <TextInput source="officialUrl" label="公式サイトURL" type="url" fullWidth />
-      <TextInput source="logoUrl" label="ロゴURL" type="url" fullWidth />
+      <ChainFormFields />
     </SimpleForm>
   </Edit>
 );
