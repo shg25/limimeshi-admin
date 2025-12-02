@@ -21,31 +21,32 @@ if (getApps().length === 0) {
 const db = getFirestore();
 
 // テスト用チェーン店データ（初期登録想定の16店舗）
+// id: 固定ID（URL用、英数字小文字）
 const chains = [
   // ハンバーガー
-  { name: 'マクドナルド', furigana: 'まくどなるど', officialUrl: 'https://www.mcdonalds.co.jp/' },
-  { name: 'モスバーガー', furigana: 'もすばーがー', officialUrl: 'https://www.mos.jp/' },
+  { id: 'mcdonalds', name: 'マクドナルド', furigana: 'まくどなるど', officialUrl: 'https://www.mcdonalds.co.jp/' },
+  { id: 'mos-burger', name: 'モスバーガー', furigana: 'もすばーがー', officialUrl: 'https://www.mos.jp/' },
   // ファストフード
-  { name: 'ケンタッキーフライドチキン', furigana: 'けんたっきーふらいどちきん', officialUrl: 'https://www.kfc.co.jp/' },
+  { id: 'kfc', name: 'ケンタッキーフライドチキン', furigana: 'けんたっきーふらいどちきん', officialUrl: 'https://www.kfc.co.jp/' },
   // 牛丼
-  { name: '吉野家', furigana: 'よしのや', officialUrl: 'https://www.yoshinoya.com/' },
-  { name: '松屋', furigana: 'まつや', officialUrl: 'https://www.matsuyafoods.co.jp/' },
-  { name: 'すき家', furigana: 'すきや', officialUrl: 'https://www.sukiya.jp/' },
-  { name: 'なか卯', furigana: 'なかう', officialUrl: 'https://www.nakau.co.jp/' },
+  { id: 'yoshinoya', name: '吉野家', furigana: 'よしのや', officialUrl: 'https://www.yoshinoya.com/' },
+  { id: 'matsuya', name: '松屋', furigana: 'まつや', officialUrl: 'https://www.matsuyafoods.co.jp/' },
+  { id: 'sukiya', name: 'すき家', furigana: 'すきや', officialUrl: 'https://www.sukiya.jp/' },
+  { id: 'nakau', name: 'なか卯', furigana: 'なかう', officialUrl: 'https://www.nakau.co.jp/' },
   // うどん
-  { name: '丸亀製麺', furigana: 'まるがめせいめん', officialUrl: 'https://www.marugame-seimen.com/' },
+  { id: 'marugame-seimen', name: '丸亀製麺', furigana: 'まるがめせいめん', officialUrl: 'https://www.marugame-seimen.com/' },
   // カレー
-  { name: 'CoCo壱番屋', furigana: 'ここいちばんや', officialUrl: 'https://www.ichibanya.co.jp/' },
+  { id: 'coco-ichibanya', name: 'CoCo壱番屋', furigana: 'ここいちばんや', officialUrl: 'https://www.ichibanya.co.jp/' },
   // とんかつ
-  { name: 'かつや', furigana: 'かつや', officialUrl: 'https://www.arclandservice.co.jp/katsuya/' },
+  { id: 'katsuya', name: 'かつや', furigana: 'かつや', officialUrl: 'https://www.arclandservice.co.jp/katsuya/' },
   // ファミレス
-  { name: 'サイゼリヤ', furigana: 'さいぜりや', officialUrl: 'https://www.saizeriya.co.jp/' },
-  { name: 'ガスト', furigana: 'がすと', officialUrl: 'https://www.skylark.co.jp/gusto/' },
-  { name: 'デニーズ', furigana: 'でにーず', officialUrl: 'https://www.dennys.jp/' },
+  { id: 'saizeriya', name: 'サイゼリヤ', furigana: 'さいぜりや', officialUrl: 'https://www.saizeriya.co.jp/' },
+  { id: 'gusto', name: 'ガスト', furigana: 'がすと', officialUrl: 'https://www.skylark.co.jp/gusto/' },
+  { id: 'dennys', name: 'デニーズ', furigana: 'でにーず', officialUrl: 'https://www.dennys.jp/' },
   // カフェ
-  { name: 'スターバックス', furigana: 'すたーばっくす', officialUrl: 'https://www.starbucks.co.jp/' },
-  { name: 'ミスタードーナツ', furigana: 'みすたーどーなつ', officialUrl: 'https://www.misterdonut.jp/' },
-  { name: 'コメダ珈琲店', furigana: 'こめだこーひーてん', officialUrl: 'https://www.komeda.co.jp/' },
+  { id: 'starbucks', name: 'スターバックス', furigana: 'すたーばっくす', officialUrl: 'https://www.starbucks.co.jp/' },
+  { id: 'mister-donut', name: 'ミスタードーナツ', furigana: 'みすたーどーなつ', officialUrl: 'https://www.misterdonut.jp/' },
+  { id: 'komeda', name: 'コメダ珈琲店', furigana: 'こめだこーひーてん', officialUrl: 'https://www.komeda.co.jp/' },
 ];
 
 // テスト用キャンペーンデータ（chainIdは後で設定）
@@ -67,41 +68,38 @@ const campaignTemplates = [
 async function seedData() {
   console.log('🌱 テストデータ投入開始...\n');
 
-  const chainIds = [];
-
-  // チェーン店データ投入
+  // チェーン店データ投入（固定ID使用）
   console.log('📦 チェーン店データ投入中...');
   for (const chain of chains) {
-    const docRef = await db.collection('chains').add({
-      ...chain,
+    const { id, ...chainData } = chain;
+    await db.collection('chains').doc(id).set({
+      ...chainData,
       favoriteCount: 0,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     });
-    chainIds.push(docRef.id);
-    console.log(`   ✅ ${chain.name} (${docRef.id})`);
+    console.log(`   ✅ ${chain.name} (${id})`);
   }
 
-  // キャンペーンデータ投入（半数のチェーンに対して）
-  const campaignChainCount = Math.ceil(chainIds.length / 2);
+  // キャンペーンデータ投入（半数のチェーンに対して、自動ID）
+  const campaignChainCount = Math.ceil(chains.length / 2);
   console.log('\n📦 キャンペーンデータ投入中...');
   for (let i = 0; i < campaignChainCount; i++) {
-    const chainId = chainIds[i];
-    const chainName = chains[i].name;
+    const chain = chains[i];
 
     for (const template of campaignTemplates) {
       const docRef = await db.collection('campaigns').add({
         ...template,
-        chainId,
+        chainId: chain.id, // 固定IDを使用
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       });
-      console.log(`   ✅ ${chainName}: ${template.name} (${docRef.id})`);
+      console.log(`   ✅ ${chain.name}: ${template.name} (${docRef.id})`);
     }
   }
 
   console.log('\n✨ テストデータ投入完了！');
-  console.log(`   チェーン店: ${chainIds.length}件`);
+  console.log(`   チェーン店: ${chains.length}件`);
   console.log(`   キャンペーン: ${campaignChainCount * campaignTemplates.length}件`);
 }
 
