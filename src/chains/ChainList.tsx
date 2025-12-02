@@ -1,10 +1,8 @@
-import { List, Datagrid, TextField, UrlField, DateField, TextInput } from 'react-admin';
-
-const chainFilters = [<TextInput key="name" source="name" label="チェーン名" alwaysOn />];
+import { List, Datagrid, TextField, UrlField, DateField } from 'react-admin';
 
 export const ChainList = () => (
-  <List filters={chainFilters} sort={{ field: 'furigana', order: 'ASC' }}>
-    <Datagrid rowClick="edit">
+  <List sort={{ field: 'furigana', order: 'ASC' }}>
+    <Datagrid rowClick="edit" bulkActionButtons={false}>
       <TextField source="name" label="チェーン名" />
       <TextField source="furigana" label="ふりがな" />
       <UrlField source="officialUrl" label="公式サイト" target="_blank" />

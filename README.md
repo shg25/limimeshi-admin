@@ -53,13 +53,14 @@ npm run dev
 
 ### チェーン店管理
 
-- 一覧表示（ふりがな昇順ソート、検索フィルタ）
+- 一覧表示（ふりがな昇順ソート）
 - 新規作成（名前、ふりがな必須）
 - 編集（ふりがな検証: ひらがなのみ）
+- 削除: Firebase Console から実施（管理画面では無効化）
 
 ### キャンペーン管理
 
-- 一覧表示（販売開始日降順ソート、検索フィルタ）
+- 一覧表示（販売開始日降順ソート）
 - 新規作成（チェーン店、キャンペーン名、販売開始日時必須）
 - 編集（日付バリデーション: 終了日 > 開始日）
 - 削除（確認ダイアログあり）
@@ -108,3 +109,15 @@ firebase deploy --only hosting:admin
 ## 関連リポジトリ
 
 - [limimeshi-docs](https://github.com/shg25/limimeshi-docs): 企画・設計ドキュメント
+
+## Post-MVP改善項目
+
+本格運用前に対応を検討する技術的負債
+
+| 項目 | 内容 | 優先度 |
+|------|------|--------|
+| Custom Claims検知 | `onAuthStateChanged` → `onIdTokenChanged` + 強制リフレッシュ | 中 |
+| Timestamp配列変換 | `convertTimestamps` で配列内のTimestampも再帰処理 | 低 |
+| ページネーション | 全件取得 → カーソル型（`orderBy` + `limit` + `startAfter`） | 中 |
+| 型安全性強化 | `Record<string, unknown>` → Chain/Campaign型定義 | 中 |
+| テスト拡充 | E2E テスト有効化、Provider統合テスト追加 | 高 |
