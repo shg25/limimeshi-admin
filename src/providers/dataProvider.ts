@@ -5,6 +5,7 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   query,
@@ -193,18 +194,35 @@ const firestoreDataProvider = {
   },
 
   create: async (resource: string, params: CreateParams) => {
-    const data = convertDatesToTimestamps(params.data);
-    const docRef = await addDoc(collection(firestore, resource), {
-      ...data,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
+    const { id: customId, ...restData } = params.data;
+    const data = convertDatesToTimestamps(restData);
+
+    let docId: string;
+
+    // カスタムIDが指定されている場合はsetDocを使用
+    if (customId && typeof customId === 'string') {
+      const docRef = doc(firestore, resource, customId);
+      await setDoc(docRef, {
+        ...data,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      docId = customId;
+    } else {
+      // 自動ID生成
+      const docRef = await addDoc(collection(firestore, resource), {
+        ...data,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+      docId = docRef.id;
+    }
 
     // 作成したドキュメントを取得して返す
-    const snapshot = await getDoc(docRef);
+    const snapshot = await getDoc(doc(firestore, resource, docId));
 
     return {
-      data: toRecord(docRef.id, snapshot.data() || {}),
+      data: toRecord(docId, snapshot.data() || {}),
     };
   },
 

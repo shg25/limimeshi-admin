@@ -1,4 +1,4 @@
-import { Edit, SimpleForm, Toolbar, SaveButton, useNotify } from 'react-admin';
+import { Edit, SimpleForm, Toolbar, SaveButton, useNotify, TextInput } from 'react-admin';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ChainFormFields } from './ChainForm';
@@ -26,6 +26,7 @@ const ChainEditToolbar = () => {
 export const ChainEdit = () => (
   <Edit>
     <SimpleForm toolbar={<ChainEditToolbar />}>
+      <TextInput source="id" label="ID" disabled fullWidth />
       <ChainFormFields />
     </SimpleForm>
   </Edit>
