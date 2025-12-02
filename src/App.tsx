@@ -1,7 +1,8 @@
-import { Admin, Resource, ListGuesser } from 'react-admin';
+import { Admin, Resource } from 'react-admin';
 import { dataProvider } from './providers/dataProvider';
 import { authProvider } from './providers/authProvider';
 import { ChainList, ChainEdit, ChainCreate } from './chains';
+import { CampaignList, CampaignEdit, CampaignCreate } from './campaigns';
 
 function App() {
   return (
@@ -13,7 +14,13 @@ function App() {
         create={ChainCreate}
         options={{ label: 'チェーン店' }}
       />
-      <Resource name="campaigns" list={ListGuesser} options={{ label: 'キャンペーン' }} />
+      <Resource
+        name="campaigns"
+        list={CampaignList}
+        edit={CampaignEdit}
+        create={CampaignCreate}
+        options={{ label: 'キャンペーン' }}
+      />
     </Admin>
   );
 }
