@@ -87,10 +87,17 @@ npm run dev
 node scripts/set-admin-claim.js <USER_UID>
 ```
 
-### テストデータ投入
+### テストデータ管理
 
 ```bash
+# テストデータ削除（chains, campaigns を全削除）
+node scripts/clear-test-data.js
+
+# テストデータ投入（16チェーン店 + キャンペーン）
 node scripts/seed-test-data.js
+
+# リセット（削除 → 投入）
+node scripts/clear-test-data.js && node scripts/seed-test-data.js
 ```
 
 ## デプロイ

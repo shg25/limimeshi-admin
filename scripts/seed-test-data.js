@@ -20,13 +20,32 @@ if (getApps().length === 0) {
 
 const db = getFirestore();
 
-// テスト用チェーン店データ
+// テスト用チェーン店データ（初期登録想定の16店舗）
 const chains = [
+  // ハンバーガー
   { name: 'マクドナルド', furigana: 'まくどなるど', officialUrl: 'https://www.mcdonalds.co.jp/' },
-  { name: 'すき家', furigana: 'すきや', officialUrl: 'https://www.sukiya.jp/' },
-  { name: '松屋', furigana: 'まつや', officialUrl: 'https://www.matsuyafoods.co.jp/' },
-  { name: '吉野家', furigana: 'よしのや', officialUrl: 'https://www.yoshinoya.com/' },
   { name: 'モスバーガー', furigana: 'もすばーがー', officialUrl: 'https://www.mos.jp/' },
+  // ファストフード
+  { name: 'ケンタッキーフライドチキン', furigana: 'けんたっきーふらいどちきん', officialUrl: 'https://www.kfc.co.jp/' },
+  // 牛丼
+  { name: '吉野家', furigana: 'よしのや', officialUrl: 'https://www.yoshinoya.com/' },
+  { name: '松屋', furigana: 'まつや', officialUrl: 'https://www.matsuyafoods.co.jp/' },
+  { name: 'すき家', furigana: 'すきや', officialUrl: 'https://www.sukiya.jp/' },
+  { name: 'なか卯', furigana: 'なかう', officialUrl: 'https://www.nakau.co.jp/' },
+  // うどん
+  { name: '丸亀製麺', furigana: 'まるがめせいめん', officialUrl: 'https://www.marugame-seimen.com/' },
+  // カレー
+  { name: 'CoCo壱番屋', furigana: 'ここいちばんや', officialUrl: 'https://www.ichibanya.co.jp/' },
+  // とんかつ
+  { name: 'かつや', furigana: 'かつや', officialUrl: 'https://www.arclandservice.co.jp/katsuya/' },
+  // ファミレス
+  { name: 'サイゼリヤ', furigana: 'さいぜりや', officialUrl: 'https://www.saizeriya.co.jp/' },
+  { name: 'ガスト', furigana: 'がすと', officialUrl: 'https://www.skylark.co.jp/gusto/' },
+  { name: 'デニーズ', furigana: 'でにーず', officialUrl: 'https://www.dennys.jp/' },
+  // カフェ
+  { name: 'スターバックス', furigana: 'すたーばっくす', officialUrl: 'https://www.starbucks.co.jp/' },
+  { name: 'ミスタードーナツ', furigana: 'みすたーどーなつ', officialUrl: 'https://www.misterdonut.jp/' },
+  { name: 'コメダ珈琲店', furigana: 'こめだこーひーてん', officialUrl: 'https://www.komeda.co.jp/' },
 ];
 
 // テスト用キャンペーンデータ（chainIdは後で設定）
@@ -63,9 +82,10 @@ async function seedData() {
     console.log(`   ✅ ${chain.name} (${docRef.id})`);
   }
 
-  // キャンペーンデータ投入（最初の3つのチェーンに対して）
+  // キャンペーンデータ投入（半数のチェーンに対して）
+  const campaignChainCount = Math.ceil(chainIds.length / 2);
   console.log('\n📦 キャンペーンデータ投入中...');
-  for (let i = 0; i < Math.min(3, chainIds.length); i++) {
+  for (let i = 0; i < campaignChainCount; i++) {
     const chainId = chainIds[i];
     const chainName = chains[i].name;
 
@@ -82,7 +102,7 @@ async function seedData() {
 
   console.log('\n✨ テストデータ投入完了！');
   console.log(`   チェーン店: ${chainIds.length}件`);
-  console.log(`   キャンペーン: ${Math.min(3, chainIds.length) * campaignTemplates.length}件`);
+  console.log(`   キャンペーン: ${campaignChainCount * campaignTemplates.length}件`);
 }
 
 seedData().catch((error) => {
