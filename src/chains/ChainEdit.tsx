@@ -1,0 +1,49 @@
+import { Edit, SimpleForm, TextInput, Toolbar, SaveButton, required, useNotify } from 'react-admin';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+// ひらがなのみのバリデーション
+const validateFurigana = (value: string) => {
+  if (!value) return undefined;
+  const hiraganaRegex = /^[\u3040-\u309Fー]+$/;
+  if (!hiraganaRegex.test(value)) {
+    return 'ひらがなのみで入力してください';
+  }
+  return undefined;
+};
+
+// カスタムツールバー（削除ボタンを無効化）
+const ChainEditToolbar = () => {
+  const notify = useNotify();
+
+  const handleDeleteClick = () => {
+    notify('チェーン店の削除は管理者に連絡してください（Firebase Consoleから削除）', {
+      type: 'warning',
+    });
+  };
+
+  return (
+    <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <SaveButton />
+      <Button startIcon={<DeleteIcon />} color="error" onClick={handleDeleteClick}>
+        削除
+      </Button>
+    </Toolbar>
+  );
+};
+
+export const ChainEdit = () => (
+  <Edit>
+    <SimpleForm toolbar={<ChainEditToolbar />}>
+      <TextInput source="name" label="チェーン名" validate={required()} fullWidth />
+      <TextInput
+        source="furigana"
+        label="ふりがな"
+        validate={[required(), validateFurigana]}
+        fullWidth
+      />
+      <TextInput source="officialUrl" label="公式サイトURL" type="url" fullWidth />
+      <TextInput source="logoUrl" label="ロゴURL" type="url" fullWidth />
+    </SimpleForm>
+  </Edit>
+);

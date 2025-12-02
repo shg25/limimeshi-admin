@@ -31,12 +31,16 @@ const convertTimestamps = (data: Record<string, unknown>): Record<string, unknow
   return result;
 };
 
-// Date文字列をFirestore Timestampに変換
+// Date文字列をFirestore Timestampに変換し、undefinedを除外
 const convertDatesToTimestamps = (data: Record<string, unknown>): Record<string, unknown> => {
   const result: Record<string, unknown> = {};
   const dateFields = ['saleStartTime', 'saleEndTime'];
 
   for (const [key, value] of Object.entries(data)) {
+    // undefinedはFirestoreでサポートされないためスキップ
+    if (value === undefined) {
+      continue;
+    }
     if (dateFields.includes(key) && typeof value === 'string') {
       result[key] = Timestamp.fromDate(new Date(value));
     } else if (key === 'createdAt' || key === 'updatedAt') {
