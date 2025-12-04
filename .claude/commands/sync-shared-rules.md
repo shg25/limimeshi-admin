@@ -1,0 +1,1 @@
+../../../limimeshi-docs/shared/setup-new-repo/.claude/commands/sync-shared-rules.md
