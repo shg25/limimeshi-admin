@@ -91,3 +91,26 @@ firebase deploy --only firestore:rules
 
 - **limimeshi-docs**: 企画・設計ドキュメント（ガバナンス）
 - **limimeshi-android**: Androidアプリ（Phase2で作成予定）
+
+## ディレクトリ構成（ガバナンス関連）
+
+本リポジトリは limimeshi-docs のガバナンスルールに従う
+
+### docs/governance/
+
+limimeshi-docsから同期されるガバナンスドキュメント：
+- `docs-style-guide.md`：ドキュメント記述ルール
+- `shared-rules.md`：複数リポジトリ共通ルール
+
+### .claude/
+
+Claude Code設定：
+- `commands/`：Custom Slash Commands
+- `skills/`：Agent Skills
+- `settings.json`：Claude Code Hooks設定
+
+### 同期について
+
+- `docs/governance/` と `.claude/`（speckit-*以外）は limimeshi-docs から同期
+- 同期は `/sync-shared-rules` コマンドで実行
+- 詳細は limimeshi-docs/README.md を参照
