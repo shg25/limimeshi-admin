@@ -2,6 +2,15 @@
 
 チェーン店の期間限定キャンペーン管理画面
 
+## 前提条件
+
+このリポジトリは limimeshi-docs と同じ親ディレクトリに配置する必要がある：
+```
+parent-directory/
+├── limimeshi-docs/    ← 必須
+└── limimeshi-admin/
+```
+
 ## 技術スタック
 
 - React 18.x + TypeScript 5.x
