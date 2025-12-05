@@ -95,28 +95,19 @@ npm run dev
 | 開始から◯ヶ月経過 | 終了日未設定で1ヶ月以上 |
 | 終了 | 販売終了後 |
 
-## 管理者設定
+## 管理者設定・テストデータ
 
-### 新規管理者の追加
-
-1. Firebase Console で Authentication からユーザーを作成
-2. Custom Claims を設定:
+管理者設定とテストデータ管理のスクリプトは [limimeshi-infra](https://github.com/shg25/limimeshi-infra) に移行しました。
 
 ```bash
-node scripts/set-admin-claim.js <USER_UID>
-```
+cd ../limimeshi-infra/scripts
 
-### テストデータ管理
+# 管理者権限付与
+node set-admin-claim.js <USER_UID>
 
-```bash
-# テストデータ削除（chains, campaigns を全削除）
-node scripts/clear-test-data.js
-
-# テストデータ投入（16チェーン店 + キャンペーン）
-node scripts/seed-test-data.js
-
-# リセット（削除 → 投入）
-node scripts/clear-test-data.js && node scripts/seed-test-data.js
+# テストデータ管理
+node seed-test-data.js   # 投入
+node clear-test-data.js  # 削除
 ```
 
 ## デプロイ
