@@ -46,9 +46,9 @@ npm install
 
 ```bash
 # .env.exampleをコピー
-cp .env.example .env.local
+cp .env.example .env.development.local
 
-# .env.localにFirebase設定を入力
+# .env.development.localにlimimeshi-devのFirebase設定を入力
 ```
 
 ### 3. 開発サーバー起動
@@ -110,12 +110,36 @@ node seed-test-data.js   # 投入
 node clear-test-data.js  # 削除
 ```
 
-## デプロイ
+## 環境構成
+
+| 環境 | Project ID | 用途 |
+|------|------------|------|
+| 開発 | limimeshi-dev | ローカル開発専用 |
+| 本番 | limimeshi-prod | Firebase Hosting |
+
+詳細は [ADR-002](docs/adr/002-environment-separation-strategy.md) を参照
+
+## デプロイ（本番環境）
 
 ```bash
+# 1. 本番用ビルド（全環境変数を指定）
+source .env.production.local && \
+VITE_FIREBASE_API_KEY=$VITE_FIREBASE_API_KEY \
+VITE_FIREBASE_AUTH_DOMAIN=$VITE_FIREBASE_AUTH_DOMAIN \
+VITE_FIREBASE_PROJECT_ID=$VITE_FIREBASE_PROJECT_ID \
+VITE_FIREBASE_STORAGE_BUCKET=$VITE_FIREBASE_STORAGE_BUCKET \
+VITE_FIREBASE_MESSAGING_SENDER_ID=$VITE_FIREBASE_MESSAGING_SENDER_ID \
+VITE_FIREBASE_APP_ID=$VITE_FIREBASE_APP_ID \
 npm run build
-firebase deploy --only hosting:admin
+
+# 2. 本番プロジェクトに切り替え
+firebase use production
+
+# 3. デプロイ
+firebase deploy --only hosting
 ```
+
+本番URL: https://limimeshi-prod.web.app
 
 ## 関連ドキュメント
 
