@@ -50,7 +50,7 @@
 
 - [x] 本番環境用Firebaseプロジェクト設定
 - [x] 本番デプロイ（Firebase Hosting）
-- [ ] CI/CD設定（GitHub Actions）
+- [ ] CI/CD設定（GitHub Actions） → [spec準備済み](.specify/specs/003-ci-cd-pipeline/spec.md)
 
 ---
 
@@ -58,6 +58,7 @@
 
 | 日付 | 更新内容 |
 |------|----------|
+| 2025/12/09 | CI/CD spec作成（003-ci-cd-pipeline）、次回着手予定 |
 | 2025/12/09 | 本番環境デプロイ完了（limimeshi-prod）、環境分離方針をADRに記録 |
 | 2025/12/05 | 共有ファイルをシンボリックリンク方式に移行、README/CLAUDE.mdに前提条件・ガバナンス構成を追加 |
 | 2025/12/05 | roadmap.md作成、Claude Code設定導入追記 |
