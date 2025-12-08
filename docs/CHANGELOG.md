@@ -8,9 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/ja/).
 ## [Unreleased]
 
 ### Added
+- 本番環境デプロイ機能（limimeshi-prod）
+  - Firebase Hosting設定（`.firebaserc`にproductionエイリアス追加）
+  - 環境変数分離（`.env.development.local`、`.env.production.local`）
+  - デプロイ手順をREADMEに追記
+- ADR-002: 環境分離方針（dev=ローカル、prod=Hosting）
+- 002-production-deploy spec（GitHub Spec Kit）
 - Claude Code設定を追加（`.claude/settings.json`、Agent Skills、Slash Commands）
 - ガバナンスドキュメントを追加（`docs/governance/`）
 - プロジェクト管理ファイルを追加（`docs/roadmap.md`、`docs/CHANGELOG.md`）
+
+### Changed
+- README.mdにデプロイ手順と環境構成を追記
 
 ## [0.1.0] - 2025-12-03
 

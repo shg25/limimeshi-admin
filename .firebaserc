@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "limimeshi-dev"
+    "default": "limimeshi-dev",
+    "production": "limimeshi-prod"
   }
 }
