@@ -68,6 +68,25 @@ npm run dev
 | `npm run test` | ユニットテスト実行 |
 | `npm run test:e2e` | E2E テスト実行 |
 
+## 開発手法：Spec-Driven Development
+
+本プロジェクトは **GitHub Spec Kit** による仕様駆動開発を採用
+
+- **仕様が王様、コードは従者**：spec.mdが唯一の信頼できる情報源
+- 全ての機能は`.specify/specs/`の仕様書から開始
+- 進捗は`docs/roadmap.md`と`docs/CHANGELOG.md`で管理
+
+### ワークフロー
+
+```
+1. /speckit-specify → spec.md（仕様書）を作成
+2. /speckit-plan → plan.md + tasks.md（実装計画）を作成
+3. /speckit-implement → tasks.md の順序に従って実装
+4. /speckit-checklist → 完了確認
+```
+
+詳細：`.specify/README.md`、`.specify/memory/constitution.md`
+
 ## 機能
 
 ### チェーン店管理
